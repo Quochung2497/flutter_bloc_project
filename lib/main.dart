@@ -11,29 +11,17 @@ void main() {
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<http.Client>(
-          create: (_) {
-            print("▶︎ main.dart: creating HTTP Client");
-            return http.Client();
-          },
+          create: (_) => http.Client(),
         ),
         RepositoryProvider<MovieApiProvider>(
-          create: (ctx) {
-            print("▶︎ main.dart: creating MovieApiProvider");
-            return MovieApiProvider(ctx.read<http.Client>());
-          },
+          create: (ctx) => MovieApiProvider(ctx.read<http.Client>()),
         ),
         RepositoryProvider<Repository>(
-          create: (ctx) {
-            print("▶︎ main.dart: creating Repository");
-            return Repository(ctx.read<MovieApiProvider>());
-          },
+          create: (ctx) => Repository(ctx.read<MovieApiProvider>()),
         ),
       ],
       child: BlocProvider<MoviesBloc>(
-        create: (ctx) {
-          print("▶︎ main.dart: creating MoviesCubit");
-          return MoviesBloc(ctx.read<Repository>());
-        },
+        create: (ctx) => MoviesBloc(ctx.read<Repository>()),
         child: const App(),
       ),
     ),

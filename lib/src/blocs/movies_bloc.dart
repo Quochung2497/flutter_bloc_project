@@ -11,13 +11,10 @@ class MoviesBloc extends Cubit<ItemModel?> {
   }
 
   Future<void> _loadMovies() async {
-    print("▶︎ MoviesCubit: _loadMovies() called");
     try {
       final ItemModel movies = await _repository.fetchAllMovies();
-      print("▶︎ MoviesCubit: fetched ${movies.results.length} movies");
       emit(movies);
     } catch (_) {
-      print("‼︎ MoviesCubit: fetch failed → emit(null)");
       emit(null);
     }
   }
